@@ -6,6 +6,9 @@ function Form() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Bail if no url
+    if (!url) return;
+
     fetchUrl?.(url);
   };
 

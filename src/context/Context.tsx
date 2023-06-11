@@ -3,6 +3,9 @@ import { createContext, useReducer } from "react";
 // Reducer
 import AppReducer from "./AppReducer";
 
+// Utils
+import { getUrl } from "../config/url";
+
 // Types
 import {
   InitialStateType,
@@ -12,13 +15,15 @@ import {
 
 // Interfaces
 import { ActionEnums } from "../interfaces/context.interface";
+import { Issue } from "../types/issues.types";
 
 // Create the initial state
 const INITIAL_STATE: InitialStateType = {
   url: "",
+  success: false,
   loading: false,
   error: false,
-  data: {},
+  data: [],
 };
 
 // Create the Global Context
@@ -50,20 +55,41 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
     });
   };
 
+  const setSuccess = (success: boolean) => {
+    dispatch({
+      type: ActionEnums.SET_SUCCESS,
+      payload: { success },
+    });
+  };
+
+  const setData = (data: Issue[]) => {
+    dispatch({
+      type: ActionEnums.SET_DATA,
+      payload: { data },
+    });
+  };
+
   const fetchUrl = async (url: string) => {
-    console.log(url);
-    return;
     try {
       setLoading(true);
-      const res = await fetch(
-        `https://api.microlink.io/?url=${encodeURIComponent(url)}`
-      );
-      const data = await res.json();
+      const res = await fetch(`${getUrl()}/api/test?url=${url}`);
+      // Check status before setting data.
+      if (res.status !== 200) {
+        setError(true);
+        setLoading(false);
+        setSuccess(false);
+        return;
+      }
+
+      const { issues } = await res.json();
+
+      setData(issues);
       setLoading(false);
-      return data;
+      setSuccess(true);
     } catch (err) {
       setError(true);
       setLoading(false);
+      setSuccess(false);
     }
   };
 
@@ -71,12 +97,11 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
     <GlobalContext.Provider
       value={{
         url: state.url,
+        success: state.success,
         loading: state.loading,
         error: state.error,
         data: state.data,
         setUrl,
-        setLoading,
-        setError,
         fetchUrl,
       }}
     >

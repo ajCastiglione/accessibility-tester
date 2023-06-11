@@ -1,14 +1,15 @@
+import { Issue } from "./issues.types";
+
 export type InitialStateType = {
   url: string;
+  success: boolean;
   loading: boolean;
   error: boolean;
-  data: object;
+  data: Issue[];
 };
 
 export type GlobalContextType = {
   setUrl?: (url: string) => void;
-  setLoading?: (loading: boolean) => void;
-  setError?: (error: boolean) => void;
   fetchUrl?: (url: string) => Promise<void>;
 } & InitialStateType;
 

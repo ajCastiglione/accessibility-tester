@@ -5,6 +5,8 @@ export enum ActionEnums {
   SET_ERROR = "SET_ERROR",
   SET_URL = "SET_URL",
   FETCH_URL = "FETCH_URL",
+  SET_DATA = "SET_DATA",
+  SET_SUCCESS = "SET_SUCCESS",
 }
 
 export type ActionTypes =
@@ -21,6 +23,12 @@ export type ActionTypes =
       };
     }
   | {
+      type: ActionEnums.SET_SUCCESS;
+      payload: {
+        success: InitialStateType["success"];
+      };
+    }
+  | {
       type: ActionEnums.SET_ERROR;
       payload: {
         error: InitialStateType["error"];
@@ -28,4 +36,10 @@ export type ActionTypes =
     }
   | {
       type: ActionEnums.FETCH_URL;
+    }
+  | {
+      type: ActionEnums.SET_DATA;
+      payload: {
+        data: InitialStateType["data"];
+      };
     };

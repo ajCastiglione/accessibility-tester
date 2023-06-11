@@ -1,6 +1,7 @@
 import pa11y from "pa11y";
 import express from "express";
 import validator from "validator";
+import cors from "cors";
 
 const PORT = process.env.PORT || 5000;
 
@@ -8,6 +9,11 @@ const app = express();
 app.disable("x-powered-by");
 
 app.use(express.static("dist"));
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.get("/api/test", async (req, res) => {
   if (!req.query.url) return res.status(400).send({ error: "No URL provided" });
