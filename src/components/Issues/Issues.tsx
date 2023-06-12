@@ -3,7 +3,9 @@ import { GlobalContext } from "../../context/Context";
 import { Issue } from "../../types/issues.types";
 
 function Issues() {
-  const { data } = useContext(GlobalContext);
+  const { data, loading } = useContext(GlobalContext);
+
+  if (loading) return <></>;
 
   if (data.length === 0)
     return <h2 className="text-center p-4">No issues found!</h2>;
@@ -11,7 +13,7 @@ function Issues() {
   const Issues = data.map((issue: Issue, idx) => {
     return (
       <div
-        className="border-2 border-gray-300 p-4 bg-white/5 break-words mb-4 md:mb-0"
+        className="border-2 border-gray-300 rounded-md p-4 bg-white/5 break-words mb-4 md:mb-0"
         key={issue.code + idx}
         data-testid="issue"
       >

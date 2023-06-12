@@ -72,6 +72,8 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
   const fetchUrl = async (url: string) => {
     try {
       setLoading(true);
+      // Clear out the data.
+      setData([]);
       const res = await fetch(`${getUrl()}/api/test?url=${url}`);
       // Check status before setting data.
       if (res.status !== 200) {

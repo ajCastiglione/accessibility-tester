@@ -15,6 +15,9 @@ function Form() {
   return (
     <form action="" id="form">
       <div className="relative">
+        <label htmlFor="url" className="sr-only">
+          Enter a URL...
+        </label>
         <input
           type="url"
           name="url"
