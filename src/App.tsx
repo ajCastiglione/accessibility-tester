@@ -8,8 +8,8 @@ function App() {
   const { loading, success } = useContext(GlobalContext);
 
   return (
-    <div className="bg-gray-900 text-white py-4 min-h-screen">
-      <div className="max-w-5xl m-auto">
+    <div className="bg-gray-900 text-white p-4 min-h-screen">
+      <div className="max-w-6xl m-auto">
         <Header />
 
         {loading && (

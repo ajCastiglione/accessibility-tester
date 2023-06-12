@@ -1,7 +1,7 @@
 export type Issue = {
   code: string;
   type: string;
-  typeCode: string;
+  typeCode: number;
   message: string;
   context: string;
   selector: string;
