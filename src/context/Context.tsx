@@ -35,6 +35,8 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
 
   // Actions
   const setUrl = (url: string) => {
+    // Clear errors when setting a new URL.
+    setError(false);
     dispatch({
       type: ActionEnums.SET_URL,
       payload: { url },
@@ -88,6 +90,7 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
       setData(issues);
       setLoading(false);
       setSuccess(true);
+      setError(false);
     } catch (err) {
       setError(true);
       setLoading(false);
