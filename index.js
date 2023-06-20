@@ -21,6 +21,10 @@ app.get("/api/test", async (req, res) => {
   if (!validator.isURL(req.query.url))
     return res.status(400).send({ error: "Invalid URL" });
 
+  // Log out the URL to be tested.
+  // TODO: Update this to use a logger.
+  console.log(`Testing ${req.query.url}`);
+
   const url = req.query.url;
 
   const results = await pa11y(url);
